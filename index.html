@@ -54,12 +54,13 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // --- 초기 데이터 설정 ---
+        // --- 초기 데이터 설정 (GRIT 추가) ---
         const initialKPIs = [
             { id: 1, title: '파이썬 데이터 분석 기초 인강 완강', category: 'productive', progress: 8, target: 10, unit: '강' },
             { id: 2, title: '여수·광양항 스마트물류 트렌드 스크랩', category: 'transformational', progress: 2, target: 5, unit: '건' },
             { id: 3, title: '타 전공(IT/경영) 학생과 정보 교류', category: 'transformational', progress: 1, target: 3, unit: '회' },
             { id: 4, title: '주 3회 30분 규칙적인 달리기', category: 'vitality', progress: 10, target: 12, unit: '회' },
+            { id: 5, title: '포기하고 싶을 때 5분만 더 버티기 (If-Then)', category: 'grit', progress: 3, target: 5, unit: '회' },
         ];
 
         const defaultProfile = {
@@ -72,7 +73,8 @@
         const categoryInfo = {
             productive: { name: '생산 자산', icon: 'fa-arrow-trend-up', color: 'text-blue-600', bg: 'bg-blue-100', border: 'border-blue-200' },
             transformational: { name: '변형 자산', icon: 'fa-network-wired', color: 'text-emerald-600', bg: 'bg-emerald-100', border: 'border-emerald-200' },
-            vitality: { name: '활력 자산', icon: 'fa-heart-pulse', color: 'text-amber-600', bg: 'bg-amber-100', border: 'border-amber-200' }
+            vitality: { name: '활력 자산', icon: 'fa-heart-pulse', color: 'text-amber-600', bg: 'bg-amber-100', border: 'border-amber-200' },
+            grit: { name: 'GRIT (그릿)', icon: 'fa-fire-flame-curved', color: 'text-orange-600', bg: 'bg-orange-100', border: 'border-orange-200' }
         };
 
         // 심화 개선 전략 데이터 (점수별 피드백)
@@ -100,7 +102,7 @@
                 desc: "계획은 좋았으나 자원 배분(Organizing)이 지연되고 있습니다. 공급망(SCM) 전체의 속도는 가장 느린 병목이 결정합니다. 내 실행력을 갉아먹는 '병목(Bottleneck)'이 무엇인지 파악해야 합니다.",
                 actions: [
                     "달성률이 유독 낮은 KPI의 원인을 '시간 부족'이라는 변명 대신 '우선순위 실패'나 '스마트폰 중독' 등 근본 원인으로 재정의하십시오.",
-                    "목표 재설정: 너무 많은 목표가 병목이라면, '생산 자산 1개', '활력 자산 1개'로 핵심 과제(Core Task)를 대폭 축소하여 역량을 집중하십시오."
+                    "목표 재설정: 너무 많은 목표가 병목이라면, '생산 자산 1개', 'GRIT(그릿) 과제 1개'로 핵심 과제(Core Task)를 대폭 축소하여 역량을 집중하십시오."
                 ],
                 refTitle: "Eliyahu M. Goldratt, 《The Goal》 (제약이론)",
                 refDesc: "조직의 목표 달성을 방해하는 제약 조건(Constraint)을 찾아내고, 다른 모든 프로세스를 그 제약 조건에 맞춰 통제함으로써 전체 시스템의 산출량을 극대화하는 생산 관리 원리."
@@ -111,9 +113,9 @@
                 color: "text-red-700",
                 bg: "bg-red-50",
                 borderColor: "border-red-200",
-                desc: "의지 부족이 아니라, 최초의 계획(Planning) 자체가 비현실적(Unrealistic)이었을 확률이 높습니다. 결과가 나온 뒤 후회하는 '사후 통제'는 늦습니다. 실패 원인을 미리 차단하는 '사전 통제'가 필요합니다.",
+                desc: "의지(GRIT) 부족이 아니라, 최초의 계획(Planning) 자체가 비현실적(Unrealistic)이었을 확률이 높습니다. 결과가 나온 뒤 후회하는 '사후 통제'는 늦습니다. 실패 원인을 미리 차단하는 '사전 통제'가 필요합니다.",
                 actions: [
-                    "[목표 분할] '토익 850점' 같은 거대한 KPI를 버리십시오. '매일 아침 10분, RC 1지문 풀기'와 같이 가장 작은 단위의 루틴(Habit)으로 쪼개십시오.",
+                    "[목표 분할] '토익 850점' 같은 거대한 KPI를 버리십시오. '매일 아침 10분, RC 1지문 풀기'와 같이 가장 작은 단위의 의도적 연습(Deliberate Practice)으로 쪼개십시오.",
                     "[활력 우선] 당분간 생산 자산(공부) 목표의 비중을 낮추고, 체력과 수면 패턴 복구(활력 자산)를 최우선 KPI로 설정하십시오."
                 ],
                 refTitle: "Stephen P. Robbins, 《Management》 & James Clear, 《Atomic Habits》",
@@ -127,21 +129,28 @@
                 title: '생산 자산 (Productive)',
                 icon: 'fa-arrow-trend-up',
                 subtitle: '"이론 조달에서 기술 가공으로"',
-                desc: '전공 책만 읽는 것은 원자재를 창고에 쌓아두는 것과 같습니다. Python, SQL 등 가공 도구(Tool)를 익히십시오. 기업은 이론을 아는 사람보다 데이터를 한 번이라도 시각화해 본 인재를 원합니다.'
+                desc: '전공 책만 읽는 것은 원자재를 창고에 쌓아두는 것과 같습니다. Python, SQL 등 가공 도구(Tool)를 익히십시오. 기업은 데이터를 한 번이라도 시각화해 본 인재를 원합니다.'
             },
             {
                 key: 'transformational',
                 title: '변형 자산 (Transformational)',
                 icon: 'fa-network-wired',
                 subtitle: '"약한 연결(Weak Ties)의 힘"',
-                desc: '매일 만나는 동기들(강한 연결)에게서는 새로운 정보가 나오지 않습니다. 마크 그라노베터의 이론처럼, 커리어의 결정적 기회는 타 전공생이나 실무자 등 이질적인 네트워크(약한 연결)에서 옵니다.'
+                desc: '매일 만나는 동기들(강한 연결)에게서는 새로운 정보가 나오지 않습니다. 마크 그라노베터의 이론처럼, 커리어의 결정적 기회는 타 전공생이나 실무자 등 이질적인 네트워크에서 옵니다.'
             },
             {
                 key: 'vitality',
                 title: '활력 자산 (Vitality)',
                 icon: 'fa-heart-pulse',
                 subtitle: '"번아웃은 경영의 리스크"',
-                desc: '100세 시대의 다단계 삶은 마라톤입니다. KPI를 100% 달성하고도 건강을 잃었다면 그 경영은 C등급입니다. 충분한 수면과 숏폼 시청 시간 단축을 통한 뇌 휴식을 반드시 통제하십시오.'
+                desc: '100세 시대의 다단계 삶은 마라톤입니다. KPI를 100% 달성하고도 건강을 잃었다면 그 경영은 C등급입니다. 충분한 수면과 숏폼 시청 시간 단축을 반드시 통제하십시오.'
+            },
+            {
+                key: 'grit',
+                title: 'GRIT (열정과 끈기)',
+                icon: 'fa-fire-flame-curved',
+                subtitle: '"재능보다 끝까지 해내는 힘"',
+                desc: '앤절라 더크워스의 통찰. 훌륭한 전략도 실행의 고통을 견디지 못하면 휴지조각이 됩니다. 포기하고 싶은 순간을 극복하는 나만의 If-Then 시나리오를 가동하십시오.'
             }
         ];
 
@@ -258,19 +267,22 @@
                                         <div className="absolute inset-0 flex items-center justify-center"><span className="text-3xl font-black text-slate-800">{overallProgress}%</span></div>
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <h3 className="font-bold text-slate-800 text-xl mt-8 mb-4">4대 핵심 자산 구축 현황</h3>
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                     {Object.entries(categoryInfo).map(([catKey, info]) => {
                                         const p = kpis.filter(k=>k.category===catKey).reduce((a,c)=>a+c.progress,0);
                                         const t = kpis.filter(k=>k.category===catKey).reduce((a,c)=>a+c.target,0);
                                         const pct = t===0?0:Math.round((p/t)*100);
                                         return (
-                                            <div key={catKey} className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-                                                <div className="flex items-center gap-3 mb-4">
+                                            <div key={catKey} className="bg-white p-4 md:p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                                                <div className="flex flex-col items-start gap-2 mb-4">
                                                     <div className={`w-10 h-10 flex items-center justify-center rounded-xl ${info.bg} ${info.color}`}><i className={`fa-solid ${info.icon} text-lg`}></i></div>
-                                                    <h4 className="font-bold text-slate-700">{info.name}</h4>
+                                                    <h4 className="font-bold text-slate-700 text-sm">{info.name}</h4>
                                                 </div>
-                                                <div className="text-2xl font-bold mb-2">{pct}%</div>
-                                                <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden"><div className={`h-2 rounded-full ${info.color.replace('text','bg')}`} style={{width:`${pct}%`}}></div></div>
+                                                <div>
+                                                    <div className="text-2xl font-bold mb-2">{pct}%</div>
+                                                    <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden"><div className={`h-2 rounded-full ${info.color.replace('text','bg')}`} style={{width:`${pct}%`}}></div></div>
+                                                </div>
                                             </div>
                                         )
                                     })}
@@ -288,6 +300,7 @@
                                 {kpis.map(kpi => {
                                     const info = categoryInfo[kpi.category];
                                     const isComp = kpi.progress === kpi.target;
+                                    const percent = Math.round((kpi.progress / kpi.target) * 100);
                                     return (
                                         <div key={kpi.id} className={`bg-white p-4 rounded-xl border shadow-sm flex items-center gap-4 ${isComp ? 'border-green-200 bg-green-50/30' : 'border-slate-200'}`}>
                                             <div className={`w-10 h-10 flex items-center justify-center rounded-lg ${isComp ? 'bg-green-100 text-green-600' : info.bg + ' ' + info.color}`}>
@@ -297,7 +310,7 @@
                                                 <span className={`text-[10px] font-bold px-2 py-0.5 rounded border ${info.bg} ${info.color} ${info.border}`}>{info.name}</span>
                                                 <h3 className={`font-bold mt-1 truncate ${isComp ? 'text-slate-400 line-through' : 'text-slate-800'}`}>{kpi.title}</h3>
                                                 <div className="flex items-center gap-2 mt-1">
-                                                    <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden"><div className={`h-full ${isComp?'bg-green-500':info.color.replace('text','bg')}`} style={{width:`${(kpi.progress/kpi.target)*100}%`}}></div></div>
+                                                    <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden"><div className={`h-full ${isComp?'bg-green-500':info.color.replace('text','bg')}`} style={{width:`${percent}%`}}></div></div>
                                                     <span className="text-xs font-bold text-slate-500 w-12 text-right">{kpi.progress}/{kpi.target}</span>
                                                 </div>
                                             </div>
@@ -365,7 +378,7 @@
                                 {/* KPI 세부 내역 */}
                                 <h3 className="font-bold text-lg text-slate-800 mb-3 border-l-4 border-slate-900 pl-3">부문별 KPI 실적</h3>
                                 <div className="overflow-x-auto mb-8 print-break-inside-avoid border border-slate-200 rounded-xl">
-                                    <table className="w-full text-left text-sm">
+                                    <table className="w-full text-left text-sm min-w-[500px]">
                                         <thead className="bg-slate-50 border-b border-slate-200">
                                             <tr>
                                                 <th className="p-3 font-bold text-slate-600">카테고리</th>
@@ -380,9 +393,9 @@
                                                 const pct = Math.round((kpi.progress/kpi.target)*100);
                                                 return (
                                                     <tr key={kpi.id} className="border-b border-slate-100 last:border-0">
-                                                        <td className="p-3"><span className={`px-2 py-1 rounded text-[11px] font-bold ${info.bg} ${info.color}`}>{info.name}</span></td>
+                                                        <td className="p-3"><span className={`px-2 py-1 rounded text-[11px] font-bold whitespace-nowrap ${info.bg} ${info.color}`}>{info.name}</span></td>
                                                         <td className="p-3 font-medium text-slate-800">{kpi.title}</td>
-                                                        <td className="p-3 text-center text-slate-600">{kpi.progress} / {kpi.target}</td>
+                                                        <td className="p-3 text-center text-slate-600 whitespace-nowrap">{kpi.progress} / {kpi.target}</td>
                                                         <td className="p-3 text-center font-bold text-slate-900">{pct}%</td>
                                                     </tr>
                                                 )
@@ -391,19 +404,21 @@
                                     </table>
                                 </div>
 
-                                {/* 3대 무형 자산 딥다이브 */}
-                                <h3 className="font-bold text-lg text-slate-800 mb-4 border-l-4 border-blue-600 pl-3 print-mt-8">3대 무형 자산별 실무 고도화 지침</h3>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 print-break-inside-avoid">
+                                {/* 4대 무형 자산 딥다이브 */}
+                                <h3 className="font-bold text-lg text-slate-800 mb-4 border-l-4 border-blue-600 pl-3 print-mt-8">4대 핵심 자산 실무 고도화 지침</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 print-break-inside-avoid">
                                     {assetDeepDive.map((asset, idx) => {
                                         const info = categoryInfo[asset.key];
                                         return (
-                                            <div key={idx} className="border border-slate-200 rounded-xl p-5 bg-white">
-                                                <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 ${info.bg} ${info.color}`}>
-                                                    <i className={`fa-solid ${asset.icon} text-lg`}></i>
+                                            <div key={idx} className="border border-slate-200 rounded-xl p-5 bg-white flex gap-4">
+                                                <div className={`w-12 h-12 flex-shrink-0 rounded-lg flex items-center justify-center ${info.bg} ${info.color}`}>
+                                                    <i className={`fa-solid ${asset.icon} text-xl`}></i>
                                                 </div>
-                                                <h4 className="font-bold text-slate-800 mb-1">{asset.title}</h4>
-                                                <p className="text-sm font-bold text-blue-600 mb-2">{asset.subtitle}</p>
-                                                <p className="text-xs text-slate-600 leading-relaxed">{asset.desc}</p>
+                                                <div>
+                                                    <h4 className="font-bold text-slate-800 mb-1">{asset.title}</h4>
+                                                    <p className={`text-xs font-bold mb-2 ${info.color}`}>{asset.subtitle}</p>
+                                                    <p className="text-xs text-slate-600 leading-relaxed">{asset.desc}</p>
+                                                </div>
                                             </div>
                                         )
                                     })}
@@ -434,7 +449,7 @@
                                         <div className="flex-1"><label className="block text-xs font-bold mb-1">학번</label><input value={tempProfile.studentId} onChange={e=>setTempProfile({...tempProfile, studentId:e.target.value})} className="w-full border rounded-lg p-2 text-sm" /></div>
                                     </div>
                                     <div><label className="block text-xs font-bold mb-1">학년/학기</label><input required value={tempProfile.yearSemester} onChange={e=>setTempProfile({...tempProfile, yearSemester:e.target.value})} className="w-full border rounded-lg p-2 text-sm" /></div>
-                                    <div><label className="block text-xs font-bold mb-1">목표 비전</label><input required value={tempProfile.regionGoal} onChange={e=>setTempProfile({...tempProfile, regionGoal:e.target.value})} className="w-full border rounded-lg p-2 text-sm" /></div>
+                                    <div><label className="block text-xs font-bold mb-1">목표 비전 (트랙)</label><input required value={tempProfile.regionGoal} onChange={e=>setTempProfile({...tempProfile, regionGoal:e.target.value})} className="w-full border rounded-lg p-2 text-sm" /></div>
                                     <button type="submit" className="w-full bg-slate-900 text-white font-bold p-3 rounded-lg mt-2">저장</button>
                                 </form>
                             </div>
@@ -449,12 +464,15 @@
                                     <button onClick={()=>setIsModalOpen(false)}><i className="fa-solid fa-xmark text-slate-400"></i></button>
                                 </div>
                                 <form onSubmit={handleSubmitKpi} className="p-5 space-y-4">
-                                    <div className="grid grid-cols-3 gap-2">
-                                        {Object.entries(categoryInfo).map(([k, i]) => (
-                                            <button key={k} type="button" onClick={()=>setNewKpi({...newKpi, category:k})} className={`p-2 rounded-lg border text-xs font-bold flex flex-col items-center gap-1 ${newKpi.category===k ? i.bg+' '+i.color+' '+i.border : 'border-slate-200 text-slate-500'}`}>
-                                                <i className={`fa-solid ${i.icon}`}></i> {i.name}
-                                            </button>
-                                        ))}
+                                    <div>
+                                        <label className="block text-xs font-bold mb-2">자산 카테고리</label>
+                                        <div className="grid grid-cols-2 gap-2">
+                                            {Object.entries(categoryInfo).map(([k, i]) => (
+                                                <button key={k} type="button" onClick={()=>setNewKpi({...newKpi, category:k})} className={`p-2 rounded-lg border text-xs font-bold flex items-center gap-2 ${newKpi.category===k ? i.bg+' '+i.color+' '+i.border : 'border-slate-200 text-slate-500'}`}>
+                                                    <i className={`fa-solid ${i.icon}`}></i> {i.name}
+                                                </button>
+                                            ))}
+                                        </div>
                                     </div>
                                     <div><label className="block text-xs font-bold mb-1">목표명</label><input required value={newKpi.title} onChange={e=>setNewKpi({...newKpi, title:e.target.value})} className="w-full border rounded-lg p-2 text-sm" /></div>
                                     <div className="flex gap-2">
